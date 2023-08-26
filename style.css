@@ -1,0 +1,211 @@
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --title-color: black;
+    --body-text-color: black;
+    --bar-text-color: white;
+    --bar-bg: rgba(0.0, 0.0, 0.0, 0.8);
+    --bar-shadow: black;
+    --bar-highlight: rgba(0.0, 0.0, 0.0, 1.0);
+    --bg-color: darkslategray;
+    --alt-color-1: paleturquoise;
+    --alt-color-2: palegreen;
+    /* must match the color of img/border.png */
+    --footer-color: slategrey;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(19, 24, 32);
+        /* force override all colors! */
+        --title-color: white !important;
+        --body-text-color: white !important;
+        --bar-text-color: rgb(255, 255, 255) !important;
+        --bar-bg: rgba(43, 52, 71, 0.9) !important;
+        --bar-shadow: rgb(9, 5, 48) !important;
+        --bar-highlight: rgb(18, 19, 31) !important;
+        --bg-color: rgb(48, 54, 63) !important;
+        --alt-color-1: rgb(31, 20, 20) !important;
+        --alt-color-2: rgb(18, 15, 27) !important;
+        /* must match the color of img/border.png */
+        --footer-color: slategrey !important;
+    }
+}
+#bigheader {
+    /* full screen, minus padding, minus nav */
+    height: 90vh;
+    width: 90vw;
+    padding: 5vw;
+    overflow:hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: left;
+    color: var(--title-color);
+}
+/* === Header top-bottom if portrait, left right on landscape ===*/
+@media screen and (orientation: landscape) {
+    #bigheader {
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: row;
+    }
+}
+#bigwords {
+    flex-grow: 0;
+    flex-shrink: 0.5;
+}
+#bigwords * {
+    margin : 5px;
+    font-size: 2em;
+}
+#bigwords .scriptless {
+    font-size: medium;
+}
+#bigheader h1 {
+    font-size: 7em;
+}
+#sheep_container {
+    flex-grow: 1.0;
+    height: 512px;
+}
+#dynba {
+    float: right;
+    position:relative;
+    aspect-ratio: 1;
+    height: 100%;
+}
+#dynba * {
+    position: absolute;
+    right:0;
+    top:0;
+    width: 512px;
+    height: 512px;
+    /*disable scrolling while playing with sheepy*/
+    touch-action: none;
+    /*make sure the user can't drag fallback
+    svg while playing with animation*/
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+#dynba *.hidden {
+    display: none;
+    opacity: 0;
+}
+nav {
+    color: var(--bar-text-color);
+    position: sticky;
+    top: 0vh;
+    bottom:0vh;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+    background-color: var(--bar-bg);
+    text-shadow: 0px 0px 15px var(--bar-shadow);
+}
+nav .filler {
+    flex-shrink: 1;
+    flex-basis: 0;
+    padding: 0;
+}
+#navname {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: left;
+    text-decoration: none;
+}
+nav a, nav div {
+    color: var(--bar-text-color);
+    flex-grow: 1;
+    padding: 1vh;
+    display: flex;
+    align-items: center;
+}
+nav a span {
+    width: 100%;
+    text-align: center;
+}
+nav a:hover {
+    text-decoration-style: dashed;
+    background-color: var(--bar-highlight);
+}
+nav .baa {
+    height: 2em;
+}
+main {
+    background-color: var(--bg-color);
+    color: var(--body-text-color);
+    display: flex;
+    flex-direction: column;
+    /* room for footer border */
+    padding-bottom: 5vw;
+    overflow: hidden;
+    padding: 2vmin;
+}
+main > section > h2 {
+    width: 100%;
+    text-align: left;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid black;
+}
+section >section:nth-of-type(even) {
+    background-color: var(--alt-color-2);
+    align-self: flex-end;
+}
+section >section:nth-of-type(odd) {
+    background-color: var(--alt-color-1);
+    align-self: flex-start;
+}
+.cardsection > section {
+    /* leave room for navbar without affecting flow */
+    padding: 1vmin;
+    margin: auto;
+
+    border-radius: 10px;
+    box-shadow:
+        inset -5px -5px rgba(0.0, 0.0, 0.0, 0.5),
+        5px 5px rgba(0.0, 0.0, 0.0, 0.5);
+}
+/* === 2-wide grid on landscape, vertical list on mobile ===*/
+@media screen and (orientation: landscape) {
+    .cardsection > h2 {
+        grid-row: 1;
+        grid-column: 1 / 3;
+    }
+    .cardsection {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}
+section h2 {
+    text-shadow: 2px 2px rgba(0.0, 0.0, 0.0, 0.2);
+}
+
+footer {
+    display: flex;
+    border-image: url('img/border.png') 32 fill / 32px / 31px space;
+    background-color: var(--footer-color);
+    box-shadow: 0px -10px 32px 0px rgba(0.0, 0.0, 0.0, 0.5);
+}
+footer div {
+    padding: 1vw 2vw;
+    flex-grow: 1;
+}
+footer div:not(:last-child) {
+    text-align: right;
+    border-right:1px dashed black;
+}
+
+main, footer {
+    display: none;
+}

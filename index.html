@@ -1,9 +1,92 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Fuzzyzilla</title>
-    </head>
-    <body>
-        <p>Hello, world!</p>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello wasm-pack!</title>
+    <link rel="stylesheet" href="style.css">
+    <noscript>
+      <style>
+        /* force show fallback image when scripts not present */
+        #dynba *.hidden {
+          opacity: 1.0 !important;
+          display: block !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <div id="bigheader">
+      <div id="bigwords">
+        <h1>Aspen Pratt</h1>
+        <p>Game programmer and tinkerer of shaders</p>
+        <noscript>
+          <p class="scriptless">This page contains webassembly and javascript content,
+            please enable javascript in your browser.</p>
+        </noscript>
+      </div>
+      <div id="sheep_container">
+        <div id="dynba">
+          <canvas id="canv" width="512px" height="512px"></canvas>
+          <!--Static image as fallback in case of script, wasm, or webgl unavailability -->
+          <img class="hidden" id="fallback_sheep" src="img/sheep.svg" alt="Baa">
+        </div>
+      </div>
+    </div>
+    <nav>
+      <a id="navname" href="#bigheader">
+        <img class="baa sr-skip" aria-hidden="true" id="fallback_sheep" src="img/sheep.svg" alt="Sheep Icon">
+        <span>Aspen Pratt</span>
+      </a>
+      <a href="#projects"><span>Projects</span></a>
+      <a href="#skills"><span>Skills</span></a>
+      <a href="#education"><span>Education &amp; Experience</span></a>
+      <a href="#contact"><span>Contact</span></a>
+      <div class="filler"></div>
+    </nav>
+    <main>
+      <section class="cardsection" id="projects">
+        <h2>Projects</h2>
+        <section>
+          <h3>Game Jams</h3>
+          <ul>
+            <li>Away from Kingdom</li>
+            <li>Holonomy</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Independent Work</h3>
+          <ul>
+            <li>Fuzzpaint</li>
+            <li></li>
+          </ul>
+        </section>
+      </section>
+      <section id="skills">
+        <h2>Skills</h2>
+        Content content<br>
+        blah blah<br>
+        blah blah<br>
+        blah blah<br>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac fermentum leo, a malesuada erat. In sit amet ante lobortis, posuere libero non, vulputate orci. Praesent blandit massa lorem, vitae ornare odio pellentesque vitae. Nunc imperdiet augue dui, sit amet hendrerit mi luctus in. Nullam convallis tortor finibus lacinia imperdiet. Vivamus justo odio, lacinia pharetra cursus vel, malesuada at tortor. Curabitur quam risus, auctor et sollicitudin vel, tincidunt sed diam. Praesent massa ante, rhoncus eu nisi vel, luctus mollis felis. Donec bibendum, turpis et dignissim hendrerit, justo libero porttitor nunc, sit amet ullamcorper dui elit id lorem. Aliquam accumsan quam et auctor pretium. Duis sit amet magna magna. 
+      </section>
+      <section id="education">
+        <h2>Education &amp; Experience</h2>
+        Content content
+      </section>
+    </main>
+    <footer id="contact">
+      <div>
+        <p>Contact me:</p>
+        <address>
+          Aspen Pratt
+          <br>
+          <a href="">Email</a>
+          <br>
+          <a href="">Phone</a>
+        </address>
+      </div>
+      <div>baa.</div>
+    </footer>
+    <script src="./bootstrap.js"></script>
+  </body>
 </html>
