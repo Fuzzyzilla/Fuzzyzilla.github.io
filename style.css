@@ -4,33 +4,58 @@ html {
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(218, 224, 243);
     --title-color: black;
     --body-text-color: black;
     --bar-text-color: white;
     --bar-bg: rgba(0.0, 0.0, 0.0, 0.8);
     --bar-shadow: black;
     --bar-highlight: rgba(0.0, 0.0, 0.0, 1.0);
-    --bg-color: darkslategray;
-    --alt-color-1: paleturquoise;
-    --alt-color-2: palegreen;
-    /* must match the color of img/border.png */
-    --footer-color: slategrey;
+    --bg-color: rgb(149, 175, 185);
+    --alt-color-1: rgb(161, 190, 218);
+    --alt-color-2: rgb(175, 205, 219);
+    /* must match the behavior of img/border.svg */
+    --footer-color: rgb(114, 147, 180);
+    --footer-font-color: black;
+    --footer-shadow: #ffffff80;
+}
+body::before {
+    content :"";
+    display: block;
+    position :fixed;
+    z-index: -1;
+    left: 0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-image: url("/img/gggrain.svg");
+    image-rendering: pixelated;
+    background-repeat: repeat;
+    background-position: center;
+    mix-blend-mode: overlay;
+    /* lowered for dark mode */
+    opacity: 0.5;
 }
 @media (prefers-color-scheme: dark) {
     body {
         background-color: rgb(19, 24, 32);
-        /* force override all colors! */
-        --title-color: white !important;
-        --body-text-color: white !important;
-        --bar-text-color: rgb(255, 255, 255) !important;
-        --bar-bg: rgba(43, 52, 71, 0.9) !important;
-        --bar-shadow: rgb(9, 5, 48) !important;
-        --bar-highlight: rgb(18, 19, 31) !important;
-        --bg-color: rgb(48, 54, 63) !important;
-        --alt-color-1: rgb(31, 20, 20) !important;
-        --alt-color-2: rgb(18, 15, 27) !important;
-        /* must match the color of img/border.png */
-        --footer-color: slategrey !important;
+        /* override colors! */
+        --title-color: white;
+        --body-text-color: white;
+        --bar-text-color: rgb(255, 255, 255);
+        --bar-bg: rgba(43, 52, 71, 0.9);
+        --bar-shadow: rgb(9, 5, 48);
+        --bar-highlight: rgb(18, 19, 31);
+        --bg-color: rgb(48, 54, 63);
+        --alt-color-1: rgb(16, 17, 34);
+        --alt-color-2: rgb(18, 15, 27);
+        /* must match the behavior of img/border.svg */
+        --footer-color: rgb(10, 9, 14);
+        --footer-font-color: white;
+        --footer-shadow: #00000080;
+    }
+    body::before {
+        opacity: 0.3;
     }
 }
 #bigheader {
@@ -45,14 +70,6 @@ body {
     justify-content: start;
     align-items: left;
     color: var(--title-color);
-}
-/* === Header top-bottom if portrait, left right on landscape ===*/
-@media screen and (orientation: landscape) {
-    #bigheader {
-        flex-wrap: wrap;
-        align-items: center;
-        flex-direction: row;
-    }
 }
 #bigwords {
     flex-grow: 0;
@@ -101,9 +118,12 @@ body {
 }
 nav {
     color: var(--bar-text-color);
+    position: -webkit-sticky;
     position: sticky;
-    top: 0vh;
-    bottom:0vh;
+    font-size: 1rem;
+    top: 0;
+    bottom:0;
+    padding: 0;
     display: flex;
     justify-content: space-around;
     align-content: center;
@@ -111,10 +131,17 @@ nav {
     background-color: var(--bar-bg);
     text-shadow: 0px 0px 15px var(--bar-shadow);
 }
-nav .filler {
-    flex-shrink: 1;
-    flex-basis: 0;
-    padding: 0;
+
+/* === Header top-bottom if portrait, left right on landscape ===*/
+@media screen and (orientation: landscape) {
+    #bigheader {
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: row;
+    }
+    nav {
+        padding: 0 10vw 0 0;
+    }
 }
 #navname {
     display: flex;
@@ -127,6 +154,7 @@ nav .filler {
 nav a, nav div {
     color: var(--bar-text-color);
     flex-grow: 1;
+    flex-shrink: 1;
     padding: 1vh;
     display: flex;
     align-items: center;
@@ -147,44 +175,91 @@ main {
     color: var(--body-text-color);
     display: flex;
     flex-direction: column;
-    /* room for footer border */
-    padding-bottom: 5vw;
-    overflow: hidden;
     padding: 2vmin;
+    /* room for footer border */
+    padding-bottom: 35px;
+    overflow: hidden;
+    line-height: 150%;
 }
-main > section > h2 {
+h2, h3 {
+    margin-top: 0;
     width: 100%;
     text-align: left;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid black;
+    border-bottom: 1px dashed var(--body-text-color);
 }
-section >section:nth-of-type(even) {
+main > section {
+    scroll-padding-top: 10vh;
+    scroll-margin-top: 10vh;
+}
+section >section:nth-of-type(4n+1), section >section:nth-of-type(4n+0) {
     background-color: var(--alt-color-2);
-    align-self: flex-end;
 }
-section >section:nth-of-type(odd) {
+section >section:nth-of-type(4n+2), section >section:nth-of-type(4n+3) {
     background-color: var(--alt-color-1);
-    align-self: flex-start;
 }
-.cardsection > section {
-    /* leave room for navbar without affecting flow */
+.cardsection > .card {
+    margin: 10px;
     padding: 1vmin;
-    margin: auto;
-
+    height: fit-content;
     border-radius: 10px;
     box-shadow:
         inset -5px -5px rgba(0.0, 0.0, 0.0, 0.5),
         5px 5px rgba(0.0, 0.0, 0.0, 0.5);
 }
+time {
+    font-weight: lighter;
+    font-size: smaller;
+    font-style: italic;
+}
+time::before {
+    content:" — ";
+}
+.card:nth-of-type(4n+1) .project-link, .card:nth-of-type(4n+0) .project-link{
+    float: right;
+    color: var(--body-text-color);
+}
+.card:nth-of-type(4n+2) .project-link, .card:nth-of-type(4n+3) .project-link {
+    float: left;
+    color: var(--body-text-color);
+}
+.project-link img {
+    max-width: 40vw;
+}
+.project-link figcaption {
+    display: flex;
+    justify-content: stretch;
+    text-align: center;
+    width: 100%;
+}
+figcaption span, figcaption::before, figcaption::after {
+    content: "";
+    display: block;
+}
+figcaption::before, figcaption::after {
+    flex-grow: 1;
+    flex-basis: 0;
+    background-image: linear-gradient(to bottom, #FFFFFF00 49%, var(--body-text-color) 49%, var(--body-text-color) 51%, #FFFFFF00 51%);
+}
+.card .summary {
+    text-align: left;
+    float: none;
+}
 /* === 2-wide grid on landscape, vertical list on mobile ===*/
 @media screen and (orientation: landscape) {
+    .project-link img {
+        max-width: 20vw;
+    }
     .cardsection > h2 {
         grid-row: 1;
         grid-column: 1 / 3;
     }
     .cardsection {
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 50% 50%;
+    }
+    .thissite {
+        grid-column: 1 / 3;
     }
 }
 section h2 {
@@ -193,9 +268,17 @@ section h2 {
 
 footer {
     display: flex;
-    border-image: url('img/border.png') 32 fill / 32px / 31px space;
+    border-image: url('img/border.svg') 32 fill / 32px / 31px round;
     background-color: var(--footer-color);
-    box-shadow: 0px -10px 32px 0px rgba(0.0, 0.0, 0.0, 0.5);
+    box-shadow: 0px -10px 32px 0px var(--footer-shadow);
+    color: var(--footer-font-color);
+}
+footer a {
+    color: var(--footer-font-color);
+    text-decoration-color: currentColor;
+}
+footer a:hover {
+    text-decoration-style: dashed;
 }
 footer div {
     padding: 1vw 2vw;
@@ -203,9 +286,8 @@ footer div {
 }
 footer div:not(:last-child) {
     text-align: right;
-    border-right:1px dashed black;
+    border-right:1px dashed var(--footer-font-color);
 }
-
-main, footer {
+.wip {
     display: none;
 }

@@ -2,8 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello wasm-pack!</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspen Pratt</title>
+    <link rel="icon" href="img/sheep.svg" type="image/svg+xml">
+    <link rel="icon" href="img/sheep-icon.png" type="image/png">
+    <link rel="stylesheet" href="/style.css">
     <noscript>
       <style>
         /* force show fallback image when scripts not present */
@@ -26,7 +29,7 @@
       </div>
       <div id="sheep_container">
         <div id="dynba">
-          <canvas id="canv" width="512px" height="512px"></canvas>
+          <canvas aria-hidden="true" id="canv" width="512px" height="512px"></canvas>
           <!--Static image as fallback in case of script, wasm, or webgl unavailability -->
           <img class="hidden" id="fallback_sheep" src="img/sheep.svg" alt="Baa">
         </div>
@@ -41,27 +44,79 @@
       <a href="#skills"><span>Skills</span></a>
       <a href="#education"><span>Education &amp; Experience</span></a>
       <a href="#contact"><span>Contact</span></a>
-      <div class="filler"></div>
     </nav>
     <main>
       <section class="cardsection" id="projects">
-        <h2>Projects</h2>
-        <section>
-          <h3>Game Jams</h3>
-          <ul>
-            <li>Away from Kingdom</li>
-            <li>Holonomy</li>
-          </ul>
+        <h2>Project Highlights</h2>
+        <section class="card">
+          <h3>Holonomy<time datetime="2022-7-17">July 2022</time></h3>
+          <a class="project-link" href="https://fuzzyzilla.itch.io/holonomy">
+            <figure>
+              <img src="https://img.itch.zone/aW1nLzk1NDQ1NDAucG5n/315x250%23c/nj4sjF.png" alt="Holonomy cover art">
+              <figcaption><span>Play on itch.io</span></figcaption>
+            </figure>
+          </a>
+          <p class="summary">
+            Made in 48 hours for the GMTK Game Jam, my platformer achieved 2nd place
+            among over 6,000 competing game jam entries. This game demonstrates novel
+            graphics techniques, allowing the 2D player character to navigate on the surface
+            of a 3D world. Custom physics logic allows the 2D physics of the player to
+            interact seamlessly with the geometry of the 3D environment. The game
+            features a striking visual style, implemented via custom material and post-
+            processing shaders.
+          </p>
         </section>
-        <section>
-          <h3>Independent Work</h3>
-          <ul>
-            <li>Fuzzpaint</li>
-            <li></li>
-          </ul>
+        <section class="card">
+          <h3>Fuzzpaint<time datetime="2021-10">October 2021 - Current</time></h3>
+          <a class="project-link" href="https://github.com/Fuzzyzilla/fuzzpaint-vk">
+            <figure>
+              <img src="/img/ralsei-full.png" alt="Ralsei, rendered in Fuzzpaint">
+              <figcaption><span>View on GitHub</span></figcaption>
+            </figure>
+          </a>
+          <p class="summary">
+            A work-in-progress vector graphics software aimed at digital artists, written in
+            Rust (formerly C++) and featuring graphics acceleration with the Vulkan API.
+            The aim is to make working with vector graphics as intuitive as working with
+            raster images, but allowing for editing capabilities and visual effects impossible
+            in a traditional layered image editing workflow – for example, retroactively
+            modifying brush settings after a drawing is complete. Over several iterations, I
+            have implemented features including dynamic tesselation of vector objects in a
+            compute shader, signed distance field effects, and efficient rendering of mixed
+            objects of differing shader materials.
+          </p>
+        </section>
+        <section class="card">
+          <h3>Away From Kingdom (AFK)<time datetime="2023-7-09">July 2023</time></h3>
+          <a class="project-link" href="https://fuzzyzilla.itch.io/afk">
+            <figure>
+              <img src="https://img.itch.zone/aW1nLzEyNzQzNzU4LnBuZw==/315x250%23c/pZ2C3l.png" alt="Away From Kingdom cover art">
+              <figcaption><span>Play on itch.io</span></figcaption>
+            </figure>
+          </a>
+          <p class="summary">
+            Also developed for the GMTK Game Jam, this game represents a focus on visual style
+          </p>
+        </section>
+        <section class="card">
+          <h3>NESRemix<time datetime="2023-08">August 2023 - Current</time></h3>
+          <p class="summary">
+            A (yet unreleased) NES emulator providing the user the ability to create and
+            share custom graphics packs. Planned features include allowing the user to
+            add particle effects, lighting, raymarched shadows, PBR textures, screenspace
+            effects, etc. to their favorite vintage games. This is an exciting deep-dive into
+            pixel-perfect rendering as well as hardware emulation, and I can't wait to show
+            it off!
+          </p>
+        </section>
+        <section class="card thissite">
+          <h3>This site!<time datetime="2023-08">August 2023</time></h3>
+          <p class="summary">
+            It is so cool :3
+          </p>
         </section>
       </section>
-      <section id="skills">
+      <section id="skills" class="wip">
         <h2>Skills</h2>
         Content content<br>
         blah blah<br>
@@ -69,7 +124,7 @@
         blah blah<br>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac fermentum leo, a malesuada erat. In sit amet ante lobortis, posuere libero non, vulputate orci. Praesent blandit massa lorem, vitae ornare odio pellentesque vitae. Nunc imperdiet augue dui, sit amet hendrerit mi luctus in. Nullam convallis tortor finibus lacinia imperdiet. Vivamus justo odio, lacinia pharetra cursus vel, malesuada at tortor. Curabitur quam risus, auctor et sollicitudin vel, tincidunt sed diam. Praesent massa ante, rhoncus eu nisi vel, luctus mollis felis. Donec bibendum, turpis et dignissim hendrerit, justo libero porttitor nunc, sit amet ullamcorper dui elit id lorem. Aliquam accumsan quam et auctor pretium. Duis sit amet magna magna. 
       </section>
-      <section id="education">
+      <section id="education" class="wip">
         <h2>Education &amp; Experience</h2>
         Content content
       </section>
