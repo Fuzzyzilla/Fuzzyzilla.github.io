@@ -6,6 +6,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: rgb(218, 224, 243);
     --title-color: black;
+    --title-shadow-color: white;
     --body-text-color: black;
     --bar-text-color: white;
     --bar-bg: rgba(0.0, 0.0, 0.0, 0.8);
@@ -34,13 +35,14 @@ body::before {
     background-position: center;
     mix-blend-mode: overlay;
     /* lowered for dark mode */
-    opacity: 0.5;
+    opacity: 0.4;
 }
 @media (prefers-color-scheme: dark) {
     body {
         background-color: rgb(19, 24, 32);
         /* override colors! */
         --title-color: white;
+        --title-shadow-color: black;
         --body-text-color: white;
         --bar-text-color: rgb(255, 255, 255);
         --bar-bg: rgba(43, 52, 71, 0.9);
@@ -78,14 +80,20 @@ body::before {
 #bigwords * {
     margin : 5px;
     font-size: 2em;
+    text-shadow: 0px 0px 2px var(--title-shadow-color), 0px 0px 10px var(--title-shadow-color);
 }
 #bigwords .scriptless {
     font-size: medium;
 }
 #bigheader h1 {
-    font-size: 7em;
+    font-size: 5em;
 }
 #sheep_container {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: -1;
+    left:0;
+    bottom:0;
     flex-grow: 1.0;
     height: 512px;
 }
@@ -97,12 +105,13 @@ body::before {
 }
 #dynba * {
     position: absolute;
-    right:0;
+    /* i give up trying to make this look good on
+    narrow vertical displays -w-
+    Reduce this spacing on landscape displays.*/
+    right:-128px;
     top:0;
     width: 512px;
     height: 512px;
-    /*disable scrolling while playing with sheepy*/
-    touch-action: none;
     /*make sure the user can't drag fallback
     svg while playing with animation*/
     user-drag: none; 
@@ -142,6 +151,9 @@ nav {
     nav {
         padding: 0 10vw 0 0;
     }
+    #dynba * {
+        right:0;
+    }
 }
 #navname {
     display: flex;
@@ -177,7 +189,7 @@ main {
     flex-direction: column;
     padding: 2vmin;
     /* room for footer border */
-    padding-bottom: 35px;
+    padding-bottom: 50px;
     overflow: hidden;
     line-height: 150%;
 }
@@ -192,10 +204,10 @@ main > section {
     scroll-padding-top: 10vh;
     scroll-margin-top: 10vh;
 }
-section >section:nth-of-type(4n+1), section >section:nth-of-type(4n+0) {
+section >section:nth-of-type(odd) {
     background-color: var(--alt-color-2);
 }
-section >section:nth-of-type(4n+2), section >section:nth-of-type(4n+3) {
+section >section:nth-of-type(even) {
     background-color: var(--alt-color-1);
 }
 .cardsection > .card {
@@ -215,20 +227,29 @@ time {
 time::before {
     content:" — ";
 }
+main a {
+    color: var(--body-text-color);
+}
+main a:hover {
+    color: var(--body-text-color);
+    text-decoration-style: dashed;
+}
 .card:nth-of-type(4n+1) .project-link, .card:nth-of-type(4n+0) .project-link{
     float: right;
-    color: var(--body-text-color);
 }
 .card:nth-of-type(4n+2) .project-link, .card:nth-of-type(4n+3) .project-link {
     float: left;
-    color: var(--body-text-color);
 }
-.project-link img {
-    max-width: 40vw;
+.card img {
+    max-width: 35vw;
 }
-.project-link figcaption {
+figure {
+    margin: 5vw 5vw 0;
+}
+figcaption {
     display: flex;
     justify-content: stretch;
+    align-items: center;
     text-align: center;
     width: 100%;
 }
@@ -238,17 +259,28 @@ figcaption span, figcaption::before, figcaption::after {
 }
 figcaption::before, figcaption::after {
     flex-grow: 1;
+    height: 1px;
     flex-basis: 0;
-    background-image: linear-gradient(to bottom, #FFFFFF00 49%, var(--body-text-color) 49%, var(--body-text-color) 51%, #FFFFFF00 51%);
+    background-color: var(--body-text-color);
+}
+/* add a hover underline animation like a link! */
+a:hover figcaption::before, a:hover figcaption::after {
+    background-color: transparent;
+    background-image: repeating-linear-gradient(to right, var(--body-text-color) 0px, var(--body-text-color) 5px, #0000 5px, #0000 8px);
+    background-size: 8px;
 }
 .card .summary {
     text-align: left;
     float: none;
+    text-indent: 15px;
 }
 /* === 2-wide grid on landscape, vertical list on mobile ===*/
 @media screen and (orientation: landscape) {
-    .project-link img {
+    .card img {
         max-width: 20vw;
+    }
+    figure {
+        margin: revert;
     }
     .cardsection > h2 {
         grid-row: 1;
@@ -258,8 +290,16 @@ figcaption::before, figcaption::after {
         display: grid;
         grid-template-columns: 50% 50%;
     }
-    .thissite {
+    .card.thissite {
         grid-column: 1 / 3;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    section >section:nth-of-type(4n+1), section >section:nth-of-type(4n+0) {
+        background-color: var(--alt-color-2);
+    }
+    section >section:nth-of-type(4n+2), section >section:nth-of-type(4n+3) {
+        background-color: var(--alt-color-1);
     }
 }
 section h2 {
